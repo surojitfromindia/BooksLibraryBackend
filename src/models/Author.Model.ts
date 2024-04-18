@@ -4,6 +4,7 @@ type IAuthor = {
     first_name: string;
     last_name: string;
     status: "A" | "D";
+    email: string;
 };
 const AuthorSchema = new Schema<IAuthor>({
     first_name: {
@@ -18,6 +19,10 @@ const AuthorSchema = new Schema<IAuthor>({
       type: String,
       required: true,
       enum: ["A","D"],
+    },
+    email:{
+      type: String,
+      required: true
     },
   });
   const AuthorModel = model<IAuthor>("authors",AuthorSchema);

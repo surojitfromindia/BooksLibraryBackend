@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
-import { IMember, MemberModel } from "models/Member.Model";
+import { IMember, MemberModel } from "../models/Member.Model";
 const createMember = async(req: Request, res: Response) => {
   try {
-    const request_body = req.body;
+    const RequestBody = req.body;
     const payload: IMember = {
-      first_name: request_body.first_name,
-      last_name: request_body.last_name,
-      dob: request_body.dob,
-      join_date: request_body.join_date,
-      gender: request_body.gender,
+      first_name: RequestBody.first_name,
+      last_name: RequestBody.last_name,
+      dob: RequestBody.dob,
+      join_date: RequestBody.join_date,
+      gender: RequestBody.gender,
       status: "A",
-      member_type: request_body.member_type,
-      contact_number: request_body.contact_number,
-      email: request_body.email,
+      member_type: RequestBody.member_type,
+      contact_number: RequestBody.contact_number,
+      email: RequestBody.email,
     };
     const newMember = new MemberModel(payload);
     const createdMember =await newMember.save();
@@ -23,7 +23,7 @@ const createMember = async(req: Request, res: Response) => {
 };
 const getallMembers = async (req: Request, res: Response) => {
   try {
-    let allMembers = await MemberModel.find({ status: "A" });
+    const allMembers = await MemberModel.find({ status: "A" });
     res.status(200).send(allMembers);
   } catch (error) {
     res.status(404).send(error);

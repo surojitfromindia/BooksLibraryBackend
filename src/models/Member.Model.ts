@@ -53,7 +53,7 @@ email:{
   type: String,
 },
 });
-const MemberModel = mongoose.model<IMember>("members",MemberSchema);
+const MemberModel = mongoose.model<IMember>("library-members",MemberSchema);
 
 export {MemberModel};
 export type {IMember};
