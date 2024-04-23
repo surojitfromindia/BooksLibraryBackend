@@ -24,5 +24,18 @@ const getallAuthors = async (req: Request, res: Response) => {
     res.status(404).json(error);
   }
 };
+const deleteAuthor= async (req: Request, res: Response) => {
+  try {
+    const {id} = req.params;
+    const delMember = await AuthorModel.findOneAndUpdate(
+      { _id: id, status: "A" },
+      { status: "D" },
+      { new: true }
+    );
+    res.status(201).send(delMember);
+  } catch (error) {
+    res.status(404).send(error);
+  }
+};
 
-export { createAuthor, getallAuthors };
+export { createAuthor, getallAuthors, deleteAuthor };
