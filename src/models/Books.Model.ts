@@ -39,7 +39,7 @@ const BooksSchema = new mongoose.Schema<IBook>({
     enum: ["A", "D"],
   },
 });
-const BooksModel = mongoose.model<IBook>("books");
+const BooksModel = mongoose.model<IBook>("books", BooksSchema);
 
 export { BooksModel };
 export type { IBook };
