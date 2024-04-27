@@ -29,7 +29,7 @@ const MemberSchema = new mongoose.Schema<IMember>({
   },
   contact_number:{
     type: String,
-    required: true,
+    required: false,
   },
   dob:{
     type: Date,
