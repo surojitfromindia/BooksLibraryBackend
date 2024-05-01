@@ -19,11 +19,12 @@ const createBook = async (req: Request, res: Response) => {
   }
 };
 
-const getallBooks = async (req: Request, res: Response) => {
+const getAllBooks = async (req: Request, res: Response) => {
   try {
-    const allBooks = await BooksModel.find({ status: "A" }).populate("virtualAuthor");
-    console.log(allBooks);
-    
+    const allBooks = await BooksModel.find({ status: "A" })
+      .populate("authors")
+      .lean();
+
     res.status(200).json(allBooks);
   } catch (error) {
     console.log(error);
@@ -37,11 +38,11 @@ const deleteBook = async (req: Request, res: Response) => {
     const delBook = await BooksModel.findOneAndReplace(
       { _id: delId, status: "A" },
       { status: "D" },
-      { new: true }
+      { new: true },
     );
     res.status(201).json(delBook);
   } catch (error) {
     res.status(404).json(error);
   }
 };
-export { createBook, getallBooks, deleteBook };
+export { createBook, getAllBooks, deleteBook };
