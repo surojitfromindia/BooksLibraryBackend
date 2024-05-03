@@ -42,17 +42,11 @@ const BooksSchema = new mongoose.Schema<IBook>(
     },
   },
   {
-    virtuals: true,
-    toObject: {
-      virtuals: true,
-    },
-    toJSON: {
-      virtuals: true,
-    },
-  }
+    virtuals: true
+  },
 );
 const BooksModel = mongoose.model<IBook>("books", BooksSchema);
-BooksSchema.virtual("virtualAuthor", {
+BooksSchema.virtual("authors", {
   localField: "author_ids",
   foreignField: "_id",
   ref: "authors",
