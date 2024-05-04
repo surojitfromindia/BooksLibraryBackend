@@ -22,7 +22,7 @@ const createBook = async (req: Request, res: Response) => {
 const getAllBooks = async (req: Request, res: Response) => {
   try {
     const allBooks = await BooksModel.find({ status: "A" })
-      .populate("authors")
+      .populate("author_list")
       .lean();
 
     res.status(200).json(allBooks);

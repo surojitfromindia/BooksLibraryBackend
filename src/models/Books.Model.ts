@@ -46,7 +46,7 @@ const BooksSchema = new mongoose.Schema<IBook>(
   },
 );
 const BooksModel = mongoose.model<IBook>("books", BooksSchema);
-BooksSchema.virtual("authors", {
+BooksSchema.virtual("author_list", {
   localField: "author_ids",
   foreignField: "_id",
   ref: "authors",
