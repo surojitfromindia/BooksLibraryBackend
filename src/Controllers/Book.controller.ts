@@ -38,7 +38,7 @@ const deleteBook = async (req: Request, res: Response) => {
     const delBook = await BooksModel.findOneAndReplace(
       { _id: delId, status: "A" },
       { status: "D" },
-      { new: true },
+      { new: true }
     );
     res.status(201).json(delBook);
   } catch (error) {
@@ -46,6 +46,17 @@ const deleteBook = async (req: Request, res: Response) => {
   }
 };
 
+const getOneBook = async (req: Request, res: Response) => {
+  try {
+    const fetchId = req.params._id;
+    const fetchBook = await BooksModel.find({
+      status: "A",
+      _id: fetchId,
+    });
+    res.status(200).send(fetchBook);
+  } catch (error) {
+    res.status(404).send(error);
+  }
+};
 
-
-export { createBook, getAllBooks, deleteBook };
+export { createBook, getAllBooks, deleteBook, getOneBook };
