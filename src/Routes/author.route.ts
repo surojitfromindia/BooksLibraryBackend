@@ -1,12 +1,12 @@
 import {
   createAuthor,
   deleteAuthor,
-  getallAuthors,
+  getAllAuthors,
 } from "../Controllers/author.controller";
 import { Router } from "express";
 const route = Router();
 route
   .post("/", createAuthor)
-  .get("/", getallAuthors)
+  .get("/", getAllAuthors)
   .delete("/:id", deleteAuthor);
 export default route;

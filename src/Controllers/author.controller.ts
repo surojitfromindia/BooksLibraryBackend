@@ -3,12 +3,12 @@ import { IAuthor, AuthorModel } from "../models/Author.Model";
 
 const createAuthor = async (req: Request, res: Response) => {
   try {
-    const Requestbody = req.body;
+    const requestBody = req.body;
     const Payload: IAuthor = {
-      first_name: Requestbody.first_name,
-      last_name: Requestbody.last_name,
+      first_name: requestBody.first_name,
+      last_name: requestBody.last_name,
       status: "A",
-      email: Requestbody.email,
+      email: requestBody.email,
     };
     const newAuthor = await AuthorModel.create(Payload);
     res.status(201).send(newAuthor);
@@ -16,7 +16,7 @@ const createAuthor = async (req: Request, res: Response) => {
     res.status(404).send(error);
   }
 };
-const getallAuthors = async (req: Request, res: Response) => {
+const getAllAuthors = async (_req: Request, res: Response) => {
   try {
     const allAuthors = await AuthorModel.find({ status: "A" });
     res.status(200).json(allAuthors);
@@ -38,4 +38,4 @@ const deleteAuthor= async (req: Request, res: Response) => {
   }
 };
 
-export { createAuthor, getallAuthors, deleteAuthor };
+export { createAuthor, getAllAuthors, deleteAuthor };

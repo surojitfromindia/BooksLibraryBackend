@@ -6,7 +6,10 @@ type IBook = {
   edition: string;
   author_ids: mongoose.ObjectId[];
   keywords: string[];
-  status: "A" | "D";
+  status?: "A" | "D";
+  in_stock?: number;
+  borrowed_stock?: number;
+  available_stock?: number;
 };
 const BooksSchema = new mongoose.Schema<IBook>(
   {
@@ -40,9 +43,25 @@ const BooksSchema = new mongoose.Schema<IBook>(
       required: true,
       enum: ["A", "D"],
     },
+
+    in_stock: {
+      type: Number,
+      required: true,
+      default: 100,
+    },
+    borrowed_stock: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    available_stock: {
+      type: Number,
+        required: true,
+        default: 100,
+    },
   },
   {
-    virtuals: true
+    virtuals: true,
   },
 );
 const BooksModel = mongoose.model<IBook>("books", BooksSchema);
