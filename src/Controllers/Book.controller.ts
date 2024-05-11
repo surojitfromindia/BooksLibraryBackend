@@ -24,7 +24,6 @@ const getAllBooks = async (req: Request, res: Response) => {
     const allBooks = await BooksModel.find({ status: "A" })
       .populate("author_list")
       .lean();
-
     res.status(200).json(allBooks);
   } catch (error) {
     console.log(error);
@@ -48,15 +47,43 @@ const deleteBook = async (req: Request, res: Response) => {
 
 const getOneBook = async (req: Request, res: Response) => {
   try {
-    const fetchId = req.params._id;
-    const fetchBook = await BooksModel.find({
+    const fetchId = req.params.id;
+    const fetchBook = await BooksModel.findOne({
       status: "A",
       _id: fetchId,
-    });
+    })
+      .populate("author_list")
+      .lean();
     res.status(200).send(fetchBook);
   } catch (error) {
     res.status(404).send(error);
   }
 };
 
-export { createBook, getAllBooks, deleteBook, getOneBook };
+const updateBook = async (req: Request, res: Response) => {
+  try {
+    const updateId = req.params.id;
+    const RequestBody = req.body;
+    const payload: IBook = {
+      title: RequestBody.title,
+      isbn: RequestBody.isbn,
+      edition: RequestBody.edition,
+      author_ids: RequestBody.author_ids,
+      keywords: RequestBody.keywords,
+      status: "A",
+    };
+    const updatedBook = await BooksModel.findOneAndUpdate(
+      {
+        _id: updateId,
+        status: "A",
+      },
+      payload,
+      { new: true }
+    );
+    res.status(200).send(updatedBook);
+  } catch (error) {
+    res.status(404).send(error);
+  }
+};
+
+export { createBook, getAllBooks, deleteBook, getOneBook, updateBook };

@@ -47,12 +47,15 @@ const CheckoutSchema = new mongoose.Schema<ICheckout>({
       },
     },
   ],
+},
+{
+  virtuals: true
 });
 
 CheckoutSchema.virtual("member_details", {
   localField: "member_id",
   foreignField: "_id",
-  ref: "members",
+  ref: "library-members",
   justOne: true,
 });
 CheckoutSchema.virtual("book_list.book_details", {
@@ -63,4 +66,4 @@ CheckoutSchema.virtual("book_list.book_details", {
 
 const CheckoutModel = mongoose.model<ICheckout>("checkouts", CheckoutSchema);
 
-export { CheckoutModel };
+export { CheckoutModel,ICheckout };
